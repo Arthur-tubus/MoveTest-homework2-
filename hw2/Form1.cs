@@ -5,13 +5,13 @@ namespace hw2
         public Form1()
         {
             InitializeComponent();
-
+            LoadPositions();
         }
         //file with coordinates
         private const string SaveFile = "positions.txt";
 
         int score = 0;//account to change the text
-        string[] ask = new string[3] { "What is the capital of France??", "What year is the beginning of World War II??", "How many planets are there in the solar system??" };//question
+        string[] ask = new string[3] { "                 What is the capital of France??", "     What year is the beginning of World War II??", "How many planets are there in the solar system??" };//question
         string[] correct = new string[3] { "Paris", "1939", "9" };//correct answers
         int score_ask = 0;//question number account
         int score_correct = 0;//number of correct answers
@@ -20,7 +20,7 @@ namespace hw2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (button1.Text != "Вийти")
+            if (button1.Text != "Restart")
             {
                 label3.Visible = true;
                 label3.Text = 3 + "/" + score_correct;
@@ -29,18 +29,15 @@ namespace hw2
                 //the location of the question
                 if (score == 0)
                 {
-
-                    label1.Location = new Point(214, 93);
                     label1.Text = ask[score_ask];
                 }
                 else if (score == 2)
                 {
-                    label1.Location = new Point(104, 93);
                     label1.Text = ask[score_ask];
                 }
                 else if (score == 4)
                 {
-                    label1.Location = new Point(134, 93);
+                    
                     label1.Text = ask[score_ask];
                 }
 
@@ -77,10 +74,10 @@ namespace hw2
 
                 //interface changes during operation
                 textBox1.Visible = true;
-                button1.Text = "перевірити";
+                button1.Text = "verify";
                 if (score % 2 == 1)
                 {
-                    button1.Text = "наступне";
+                    button1.Text = "next";
                     textBox1.Visible = false;
                     label2.Visible = true;
 
@@ -88,7 +85,7 @@ namespace hw2
                     if (score == 5)
                     {
                         score_ask = 0;
-                        button1.Text = "завершити";
+                        button1.Text = "complete";
 
                     }
                 }
@@ -105,12 +102,9 @@ namespace hw2
                 if (score == 6)
                 {
                     button2.Visible = true;
-                    button1.Location = new Point(222, 251);
-                    button2.Location = new Point(385, 251);
                     textBox1.Visible = false;
-                    label1.Text = "Кінець тесту";
-                    label1.Location = new Point(255, 112);
-                    button1.Text = "Вийти";
+                    label1.Text = "                                 End of the test";
+                    button1.Text = "Restart";
                 }
 
                 score += 1;
@@ -119,29 +113,26 @@ namespace hw2
             else
             {
 
-                var res = MessageBox.Show(label4.Text, "Заголовок", MessageBoxButtons.YesNo,
-                MessageBoxIcon.Information);
-                if (res == DialogResult.Yes)
-                {
-                    Application.Exit();
-                }
+                score = 0;
+                score_correct = 0;
+                score_ask = 0;
+                button1.Text = "Begin";
+                label1.Text = "                                             Test";
+                button2.Visible = false;
 
             }
             b = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {//reboot
-
-            score = 0;
-            score_correct = 0;
-            score_ask = 0;
-            button1.Text = "Почати";
-            label1.Text = "Tecт";
-            label1.Location = new Point(318, 100);
-
-            button1.Location = new Point(296, 251);
-            button2.Visible = false;
+        {
+            //reboot
+            var res = MessageBox.Show(label4.Text, "Confirmation", MessageBoxButtons.YesNo,
+               MessageBoxIcon.Information);
+            if (res == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
         }
 
         //_________________________________________
@@ -153,7 +144,7 @@ namespace hw2
         bool b = false;
         private Control activeControl = null;
         // functions of movement of elements
-        //             елемент 1
+        //                  element 1
         private void label3_Click(object sender, EventArgs e)
         {
             b = true;
@@ -186,6 +177,7 @@ namespace hw2
                 activeControl = null;
                 a += 1;
                 Cursor = Cursors.Default;
+                SavePositions();
             }
         }
 
@@ -225,6 +217,7 @@ namespace hw2
                 activeControl = null;
                 a += 1;
                 Cursor = Cursors.Default;
+                SavePositions();
             }
         }
         //                  element 3
@@ -299,7 +292,7 @@ namespace hw2
                 activeControl = null;
                 a += 1;
                 Cursor = Cursors.Default;
-
+                SavePositions();
             }
         }
         //                  element 5
@@ -330,7 +323,7 @@ namespace hw2
                 activeControl = null;
                 a += 1;
                 Cursor = Cursors.Default;
-
+                SavePositions();
             }
         }
         //                  element 6
@@ -366,7 +359,7 @@ namespace hw2
                 activeControl = null;
                 a += 1;
                 Cursor = Cursors.Default;
-
+                SavePositions();
             }
         }
 
@@ -376,15 +369,14 @@ namespace hw2
             using (StreamWriter writer = new StreamWriter(SaveFile))
             {
                 writer.WriteLine($"{label1.Location.X},{label1.Location.Y}");
-                //writer.WriteLine($"{button1.Location.X},{button1.Location.Y}");
-                //writer.WriteLine($"{textBox1.Location.X},{textBox1.Location.Y}");
-                //writer.WriteLine($"{label2.Location.X},{label2.Location.Y}");
-                //writer.WriteLine($"{label3.Location.X},{label3.Location.Y}");
-                //writer.WriteLine($"{button2.Location.X},{button2.Location.Y}");
-
-
+                writer.WriteLine($"{label2.Location.X},{label2.Location.Y}");
+                writer.WriteLine($"{label3.Location.X},{label3.Location.Y}");
+                writer.WriteLine($"{button1.Location.X},{button1.Location.Y}");
+                writer.WriteLine($"{button2.Location.X},{button2.Location.Y}");
+                writer.WriteLine($"{textBox1.Location.X},{textBox1.Location.Y}");
             }
         }
+
         private Point ParsePoint(string line)
         {
             string[] parts = line.Split(',');

@@ -41,11 +41,11 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Candara", 19.8000011F, FontStyle.Bold);
-            label1.Location = new Point(334, 107);
+            label1.Location = new Point(36, 119);
             label1.Name = "label1";
-            label1.Size = new Size(82, 41);
+            label1.Size = new Size(392, 41);
             label1.TabIndex = 0;
-            label1.Text = "Тест";
+            label1.Text = "                                             Test";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             label1.Click += label1_Click;
             label1.MouseDown += label1_MouseDown;
@@ -55,11 +55,11 @@
             // button1
             // 
             button1.Font = new Font("Calibri", 16.2F);
-            button1.Location = new Point(296, 251);
+            button1.Location = new Point(305, 251);
             button1.Name = "button1";
             button1.Size = new Size(157, 60);
             button1.TabIndex = 1;
-            button1.Text = "Почати";
+            button1.Text = "Start";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             button1.MouseDown += button1_MouseDown;
@@ -68,7 +68,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(296, 192);
+            textBox1.Location = new Point(305, 192);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(157, 27);
             textBox1.TabIndex = 2;
@@ -81,7 +81,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(350, 195);
+            label2.Location = new Point(358, 195);
             label2.Name = "label2";
             label2.Size = new Size(50, 20);
             label2.TabIndex = 3;
@@ -109,11 +109,11 @@
             // button2
             // 
             button2.Font = new Font("Calibri", 16.2F);
-            button2.Location = new Point(385, 251);
+            button2.Location = new Point(305, 329);
             button2.Name = "button2";
             button2.Size = new Size(157, 60);
             button2.TabIndex = 5;
-            button2.Text = "Рестарт";
+            button2.Text = "Exit";
             button2.UseVisualStyleBackColor = true;
             button2.Visible = false;
             button2.Click += button2_Click;
@@ -151,6 +151,23 @@
             PerformLayout();
         }
 
+        private void LoadPositions()
+        {
+            if (File.Exists(SaveFile))
+            {
+                string[] lines = File.ReadAllLines(SaveFile);
+                if (lines.Length >= 6)
+                {
+                    label1.Location = ParsePoint(lines[0]);
+                    label2.Location = ParsePoint(lines[1]);
+                    label3.Location = ParsePoint(lines[2]);
+                    button1.Location = ParsePoint(lines[3]);
+                    button2.Location = ParsePoint(lines[4]);
+                    textBox1.Location = ParsePoint(lines[5]);
+                    
+                }
+            }
+        }
         #endregion
 
         private Label label1;
