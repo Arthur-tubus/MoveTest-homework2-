@@ -7,17 +7,16 @@ namespace hw2
             InitializeComponent();
 
         }
-        //файл з координатами
+        //file with coordinates
         private const string SaveFile = "positions.txt";
 
-        int score = 0;//рахунок для зміни тексту
-        string[] ask = new string[3] { "Яка столиця Франції?", "Який рік є початком Другої світової війни?", "Скільки планет у Сонячній системі ?" };//питання
-        string[] correct = new string[3] { "Париж", "1939", "9" };//правильні відповіді
-        int score_ask = 0;//рахунок номера питання
-        int score_correct = 0;//кількість правильних відповідей
+        int score = 0;//account to change the text
+        string[] ask = new string[3] { "What is the capital of France??", "What year is the beginning of World War II??", "How many planets are there in the solar system??" };//question
+        string[] correct = new string[3] { "Paris", "1939", "9" };//correct answers
+        int score_ask = 0;//question number account
+        int score_correct = 0;//number of correct answers
 
-        int X_button2 = 385;
-        int Y_button2 = 251;
+       
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -26,8 +25,8 @@ namespace hw2
                 label3.Visible = true;
                 label3.Text = 3 + "/" + score_correct;
 
-                //label3.Text = Convert.ToString(score);
-                //розташування питання
+
+                //the location of the question
                 if (score == 0)
                 {
 
@@ -50,7 +49,7 @@ namespace hw2
 
 
 
-                //перевірка правильних відповідей
+                //checking correct answers
                 bool audit = string.Equals(correct[0], textBox1.Text, StringComparison.OrdinalIgnoreCase);
                 if (audit == true & score == 1)
                 {
@@ -76,7 +75,7 @@ namespace hw2
                     label2.ForeColor = Color.Red;
                 }
 
-                //зміни інтерфейсу під час дії
+                //interface changes during operation
                 textBox1.Visible = true;
                 button1.Text = "перевірити";
                 if (score % 2 == 1)
@@ -105,11 +104,9 @@ namespace hw2
 
                 if (score == 6)
                 {
-                    //button1.Visible = false;
-                    //button1.Location = new Point(207, 254);
                     button2.Visible = true;
                     button1.Location = new Point(222, 251);
-                    button2.Location = new Point(X_button2, Y_button2);
+                    button2.Location = new Point(385, 251);
                     textBox1.Visible = false;
                     label1.Text = "Кінець тесту";
                     label1.Location = new Point(255, 112);
@@ -134,8 +131,8 @@ namespace hw2
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {//рестарт 
-            //if (e.Button == MouseButtons.Left) { }
+        {//reboot
+
             score = 0;
             score_correct = 0;
             score_ask = 0;
@@ -155,7 +152,7 @@ namespace hw2
         int a = 0;
         bool b = false;
         private Control activeControl = null;
-        // функції пересування елементів
+        // functions of movement of elements
         //             елемент 1
         private void label3_Click(object sender, EventArgs e)
         {
@@ -163,20 +160,21 @@ namespace hw2
         }
         private void label3_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right & a % 2 == 1) // Переконуємось, що натиснута ліва кнопка миші
+            if (e.Button == MouseButtons.Right & a % 2 == 1) // Make sure the left mouse button is pressed
             {
-                activeControl = sender as Control; // Запам'ятовуємо елемент, що переміщається
-                isDragging = true; // Починаємо перетягування
-                offset = e.Location; // Фіксуємо зміщення курсора відносно елемента
+                activeControl = sender as Control; // Remembering the element that is moving
+                isDragging = true; // Let's start dragging
+                offset = e.Location; // Fix the cursor displacement relative to the element
                 Cursor = Cursors.Hand;
             }
         }
 
         private void label3_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isDragging && activeControl != null) // Перевіряємо, чи активне перетягування
+            if (isDragging && activeControl != null) // Check if drag and drop is active
             {
-                activeControl.Location = this.PointToClient(Cursor.Position - new Size(offset)); // Оновлюємо його координати
+                // Update its coordinates
+                activeControl.Location = this.PointToClient(Cursor.Position - new Size(offset)); 
             }
         }
 
@@ -192,7 +190,7 @@ namespace hw2
         }
 
 
-        //                  елемент 2
+        //                  element 2
         private void button2_MouseClick(object sender, MouseEventArgs e)
         {
 
@@ -202,20 +200,20 @@ namespace hw2
 
         private void button2_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right & a % 2 == 1) // Переконуємось, що натиснута ліва кнопка миші
+            if (e.Button == MouseButtons.Right & a % 2 == 1) 
             {
-                activeControl = sender as Control; // Запам'ятовуємо елемент, що переміщається
-                isDragging = true; // Починаємо перетягування
-                offset = e.Location; // Фіксуємо зміщення курсора відносно елемента
+                activeControl = sender as Control;
+                isDragging = true; 
+                offset = e.Location; 
                 Cursor = Cursors.Hand;
             }
         }
 
         private void button2_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isDragging && activeControl != null) // Перевіряємо, чи активне перетягування
+            if (isDragging && activeControl != null) 
             {
-                activeControl.Location = this.PointToClient(Cursor.Position - new Size(offset)); // Оновлюємо його координати
+                activeControl.Location = this.PointToClient(Cursor.Position - new Size(offset)); 
             }
         }
 
@@ -229,7 +227,7 @@ namespace hw2
                 Cursor = Cursors.Default;
             }
         }
-        //                  елемент 3
+        //                  element 3
         private void label2_Click(object sender, EventArgs e)
         {
             b = true;
@@ -237,21 +235,20 @@ namespace hw2
 
         private void label2_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right & a % 2 == 1) // Переконуємось, що натиснута ліва кнопка миші
+            if (e.Button == MouseButtons.Right & a % 2 == 1) 
             {
-                activeControl = sender as Control; // Запам'ятовуємо елемент, що переміщається
-                isDragging = true; // Починаємо перетягування
-                offset = e.Location; // Фіксуємо зміщення курсора відносно елемента
-                //a+=1;
+                activeControl = sender as Control; 
+                isDragging = true;
+                offset = e.Location; 
                 Cursor = Cursors.Hand;
             }
         }
 
         private void label2_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isDragging && activeControl != null) // Перевіряємо, чи активне перетягування
+            if (isDragging && activeControl != null)
             {
-                activeControl.Location = this.PointToClient(Cursor.Position - new Size(offset)); // Оновлюємо його координати
+                activeControl.Location = this.PointToClient(Cursor.Position - new Size(offset)); 
             }
 
         }
@@ -267,7 +264,7 @@ namespace hw2
 
             }
         }
-        //                  елемент 4
+        //                  element 4
         private void textBox1_Click(object sender, EventArgs e)
         {
             b = true;
@@ -276,21 +273,21 @@ namespace hw2
 
         private void textBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right & a % 2 == 1) // Переконуємось, що натиснута ліва кнопка миші
+            if (e.Button == MouseButtons.Right & a % 2 == 1) 
             {
-                activeControl = sender as Control; // Запам'ятовуємо елемент, що переміщається
-                isDragging = true; // Починаємо перетягування
-                offset = e.Location; // Фіксуємо зміщення курсора відносно елемента
-                //a+=1;
+                activeControl = sender as Control; 
+                isDragging = true; 
+                offset = e.Location; 
+                
                 Cursor = Cursors.Hand;
             }
         }
 
         private void textBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isDragging && activeControl != null) // Перевіряємо, чи активне перетягування
+            if (isDragging && activeControl != null) 
             {
-                activeControl.Location = this.PointToClient(Cursor.Position - new Size(offset)); // Оновлюємо його координати
+                activeControl.Location = this.PointToClient(Cursor.Position - new Size(offset)); 
             }
         }
 
@@ -305,24 +302,23 @@ namespace hw2
 
             }
         }
-        //                  елемент 5
+        //                  element 5
         private void button1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right & a % 2 == 1) // Переконуємось, що натиснута ліва кнопка миші
+            if (e.Button == MouseButtons.Right & a % 2 == 1)
             {
-                activeControl = sender as Control; // Запам'ятовуємо елемент, що переміщається
-                isDragging = true; // Починаємо перетягування
-                offset = e.Location; // Фіксуємо зміщення курсора відносно елемента
-                //a+=1;
+                activeControl = sender as Control; 
+                isDragging = true; 
+                offset = e.Location; 
                 Cursor = Cursors.Hand;
             }
         }
 
         private void button1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isDragging && activeControl != null) // Перевіряємо, чи активне перетягування
+            if (isDragging && activeControl != null) 
             {
-                activeControl.Location = this.PointToClient(Cursor.Position - new Size(offset)); // Оновлюємо його координати
+                activeControl.Location = this.PointToClient(Cursor.Position - new Size(offset));
             }
         }
 
@@ -337,7 +333,7 @@ namespace hw2
 
             }
         }
-        //                  елемент 6
+        //                  element 6
         private void label1_Click(object sender, EventArgs e)
         {
             b = true;
@@ -345,21 +341,20 @@ namespace hw2
 
         private void label1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right & a % 2 == 1) // Переконуємось, що натиснута ліва кнопка миші
+            if (e.Button == MouseButtons.Right & a % 2 == 1) 
             {
-                activeControl = sender as Control; // Запам'ятовуємо елемент, що переміщається
-                isDragging = true; // Починаємо перетягування
-                offset = e.Location; // Фіксуємо зміщення курсора відносно елемента
-                //a+=1;
+                activeControl = sender as Control; 
+                isDragging = true; 
+                offset = e.Location;
                 Cursor = Cursors.Hand;
             }
         }
 
         private void label1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isDragging && activeControl != null) // Перевіряємо, чи активне перетягування
+            if (isDragging && activeControl != null) 
             {
-                activeControl.Location = this.PointToClient(Cursor.Position - new Size(offset)); // Оновлюємо його координати
+                activeControl.Location = this.PointToClient(Cursor.Position - new Size(offset));
             }
         }
 
@@ -375,7 +370,7 @@ namespace hw2
             }
         }
 
-        //метод для збереження координат
+        //method for saving coordinates
         private void SavePositions()
         {
             using (StreamWriter writer = new StreamWriter(SaveFile))
